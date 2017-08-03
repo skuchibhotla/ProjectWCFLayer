@@ -42,7 +42,7 @@ namespace ProjectWCFLayer
             tblCustomer c1 = db.tblCustomers.Single(x => x.CustomerId == customerid);
             db.tblCustomers.Remove(c1);
             db.SaveChanges();
-            return e1;
+            return c1;
         }
 
         public tblEmployee DeleteEmployee(int empno)
@@ -65,12 +65,12 @@ namespace ProjectWCFLayer
 
         public tblEmployee EditEmployee(int empno, string ename, int mgr)
         {
-            tblEmployee e1 = db.tblEmployees.Single < x => x.empno == empno);
+            tblEmployee e1 = db.tblEmployees.Single(x => x.empno == empno);
             e1.ename = ename;
             e1.mgr = mgr;
             db.SaveChanges();
             return e1;
-        }
+        } 
 
         public List<tblCustomer> GetCustomer()
         {
