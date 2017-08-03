@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SoaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustorName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="empno" />
+          </Key>
+          <Property Name="empno" Type="int" Nullable="false" />
+          <Property Name="ename" Type="varchar" MaxLength="20" />
+          <Property Name="mgr" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="Amount" Type="float" />
+        </EntityType>
+        <Function Name="spAddEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="empno" Type="int" Mode="In" />
+          <Parameter Name="ename" Type="varchar" Mode="In" />
+          <Parameter Name="mgr" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="empno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spEditEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="empno" Type="int" Mode="In" />
+          <Parameter Name="ename" Type="varchar" Mode="In" />
+          <Parameter Name="mgr" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetEmployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetSales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SoaDBModelStoreContainer">
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEmployee" EntityType="Self.tblEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSales" EntityType="Self.tblSales" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SoaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="empno" />
+          </Key>
+          <Property Name="empno" Type="Int32" Nullable="false" />
+          <Property Name="ename" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="mgr" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblSale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="Amount" Type="Double" />
+        </EntityType>
+        <EntityContainer Name="SoaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCustomers" EntityType="Self.tblCustomer" />
+          <EntitySet Name="tblEmployees" EntityType="Self.tblEmployee" />
+          <EntitySet Name="tblSales" EntityType="Self.tblSale" />
+          <FunctionImport Name="spAddEmployee">
+            <Parameter Name="empno" Mode="In" Type="Int32" />
+            <Parameter Name="ename" Mode="In" Type="String" />
+            <Parameter Name="mgr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteEmployee">
+            <Parameter Name="empno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spEditEmployee">
+            <Parameter Name="empno" Mode="In" Type="Int32" />
+            <Parameter Name="ename" Mode="In" Type="String" />
+            <Parameter Name="mgr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetCustomers" ReturnType="Collection(SoaDBModel.spGetCustomers_Result)" />
+          <FunctionImport Name="spGetEmployees" ReturnType="Collection(SoaDBModel.spGetEmployees_Result)" />
+          <FunctionImport Name="spGetSales" ReturnType="Collection(SoaDBModel.spGetSales_Result)" />
+        </EntityContainer>
+        <ComplexType Name="spGetCustomers_Result">
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <Property Type="String" Name="CustorName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EmployeeId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetEmployees_Result">
+          <Property Type="Int32" Name="empno" Nullable="false" />
+          <Property Type="String" Name="ename" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="mgr" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetSales_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="CustomerId" Nullable="true" />
+          <Property Type="Double" Name="Amount" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SoaDBModelStoreContainer" CdmEntityContainer="SoaDBEntities">
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="SoaDBModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustorName" ColumnName="CustorName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEmployees">
+            <EntityTypeMapping TypeName="SoaDBModel.tblEmployee">
+              <MappingFragment StoreEntitySet="tblEmployee">
+                <ScalarProperty Name="empno" ColumnName="empno" />
+                <ScalarProperty Name="ename" ColumnName="ename" />
+                <ScalarProperty Name="mgr" ColumnName="mgr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSales">
+            <EntityTypeMapping TypeName="SoaDBModel.tblSale">
+              <MappingFragment StoreEntitySet="tblSales">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAddEmployee" FunctionName="SoaDBModel.Store.spAddEmployee" />
+          <FunctionImportMapping FunctionImportName="spDeleteEmployee" FunctionName="SoaDBModel.Store.spDeleteEmployee" />
+          <FunctionImportMapping FunctionImportName="spEditEmployee" FunctionName="SoaDBModel.Store.spEditEmployee" />
+          <FunctionImportMapping FunctionImportName="spGetCustomers" FunctionName="SoaDBModel.Store.spGetCustomers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SoaDBModel.spGetCustomers_Result">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustorName" ColumnName="CustorName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetEmployees" FunctionName="SoaDBModel.Store.spGetEmployees">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SoaDBModel.spGetEmployees_Result">
+                <ScalarProperty Name="empno" ColumnName="empno" />
+                <ScalarProperty Name="ename" ColumnName="ename" />
+                <ScalarProperty Name="mgr" ColumnName="mgr" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetSales" FunctionName="SoaDBModel.Store.spGetSales">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SoaDBModel.spGetSales_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
